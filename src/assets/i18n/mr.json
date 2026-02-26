@@ -1,0 +1,55 @@
+{
+    "LOGIN": {
+        "TITLE": "लॉग इन",
+        "SUBTITLE": "कृपया लॉग इन करण्यासाठी तुमचा फ्लॅट नंबर टाका",
+        "FLAT_NUMBER": "फ्लॅट नंबर / युझरनेम",
+        "PASSWORD": "पासवर्ड",
+        "LOGIN_BTN": "लॉग इन करा",
+        "LOGGING_IN": "लॉग इन करत आहे...",
+        "ERRORS": {
+            "EMPTY": "कृपया फ्लॅट नंबर आणि पासवर्ड दोन्ही प्रविष्ट करा",
+            "INVALID_PASS": "चुकीचा पासवर्ड. 'password123' वापरून पहा.",
+            "NOT_FOUND": "वापरकर्ता (फ्लॅट नंबर) आढळला नाही.",
+            "DEVICE_LOCKED": "या फ्लॅटसाठी दुसरा वापरकर्ता या डिव्हाइसवर आधीपासूनच नोंदणीकृत आहे."
+        }
+    },
+    "MENU": {
+        "WELCOME": "सुस्वागतम",
+        "ROLE": "भूमिका",
+        "DASHBOARD": "डॅशबोर्ड",
+        "MEMBERS": "सदस्य",
+        "COMMITTEE": "समिती",
+        "MAINTENANCE": "देखभाल",
+        "EVENTS": "कार्यक्रम",
+        "COMPLAINTS": "तक्रारी",
+        "VEHICLES": "वाहने",
+        "CONTACTS": "संपर्क",
+        "DARK_MODE": "डार्क मोड",
+        "LOGOUT": "बाहेर पडा",
+        "SETTINGS": "सेटिंग्ज"
+    },
+    "SETTINGS": {
+        "PREFERENCES": "प्राधान्ये"
+    },
+    "DASHBOARD": {
+        "TABS": {
+            "EVENTS": "कार्यक्रम (या आठवड्यात)",
+            "UPDATES": "अद्यतने",
+            "OBLIGATIONS": "माझी कर्तव्ये"
+        }
+    },
+    "MAINTENANCE": {
+        "TABS": {
+            "DASHBOARD": "डॅशबोर्ड",
+            "PENDING": "प्रलंबित",
+            "PAID": "पैसे दिले"
+        },
+        "TOTAL_PENDING": "एकूण प्रलंबित रक्कम",
+        "CURRENT_MONTH": "चालू महिना",
+        "LAST_MONTH": "गेला महिना",
+        "FILTER": {
+            "MONTHLY": "मासिक",
+            "YEARLY": "वार्षिक"
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "LOGIN": {
+        "TITLE": "Login",
+        "SUBTITLE": "Please enter your Flat Number to login",
+        "FLAT_NUMBER": "Flat Number / Username",
+        "PASSWORD": "Password",
+        "LOGIN_BTN": "Login",
+        "LOGGING_IN": "Logging in...",
+        "ERRORS": {
+            "EMPTY": "Please enter both Flat Number and Password",
+            "INVALID_PASS": "Invalid password. Try 'password123'.",
+            "NOT_FOUND": "User (Flat Number) not found.",
+            "DEVICE_LOCKED": "Another user for this flat is already registered on this device."
+        }
+    },
+    "MENU": {
+        "WELCOME": "Welcome",
+        "ROLE": "Role",
+        "DASHBOARD": "Dashboard",
+        "MEMBERS": "Members",
+        "COMMITTEE": "Committee",
+        "MAINTENANCE": "Maintenance",
+        "EVENTS": "Events",
+        "COMPLAINTS": "Complaints",
+        "VEHICLES": "Vehicles",
+        "CONTACTS": "Contacts",
+        "DARK_MODE": "Dark Mode",
+        "LOGOUT": "Logout",
+        "SETTINGS": "Settings"
+    },
+    "SETTINGS": {
+        "PREFERENCES": "Preferences"
+    },
+    "DASHBOARD": {
+        "TABS": {
+            "EVENTS": "Events (This Week)",
+            "UPDATES": "Updates",
+            "OBLIGATIONS": "My Obligations"
+        }
+    },
+    "MAINTENANCE": {
+        "TABS": {
+            "DASHBOARD": "Dashboard",
+            "PENDING": "Pending",
+            "PAID": "Paid"
+        },
+        "TOTAL_PENDING": "Total Amount Pending",
+        "CURRENT_MONTH": "Current Month",
+        "LAST_MONTH": "Last Month",
+        "FILTER": {
+            "MONTHLY": "Monthly",
+            "YEARLY": "Yearly"
+        }
+    }
+}

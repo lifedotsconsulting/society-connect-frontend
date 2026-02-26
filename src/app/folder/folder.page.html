@@ -1,0 +1,269 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  @switch(folder.toLowerCase()) {
+
+  @case('dashboard') {
+  <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="events">
+      <ion-label>{{ 'DASHBOARD.TABS.EVENTS' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="updates">
+      <ion-label>{{ 'DASHBOARD.TABS.UPDATES' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="obligations">
+      <ion-label>{{ 'DASHBOARD.TABS.OBLIGATIONS' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="selectedTab" class="ion-margin-top">
+    <!-- Tab 1: Events -->
+    <div *ngSwitchCase="'events'">
+      <ion-list>
+        @for(e of dashboardEvents; track e.title) {
+        <ion-item>
+          <ion-icon name="calendar-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ e.title }}</h2>
+            <p>{{ e.type }} Event</p>
+          </ion-label>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+
+    <!-- Tab 2: Updates -->
+    <div *ngSwitchCase="'updates'">
+      <ion-list>
+        @for(u of dashboardUpdates; track u.title) {
+        <ion-item>
+          <ion-icon name="notifications-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>
+            <h2>{{ u.title }}</h2>
+            <p>By {{ u.createdBy }} on {{ u.createdOn }}</p>
+          </ion-label>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+
+    <!-- Tab 3: Obligations -->
+    <div *ngSwitchCase="'obligations'">
+      <ion-list>
+        @for(o of dashboardObligations; track o.title) {
+        <ion-item>
+          <ion-icon name="alert-circle-outline" slot="start" color="danger"></ion-icon>
+          <ion-label>
+            <h2>{{ o.title }}</h2>
+            <p>Due: {{ o.dueDate }}</p>
+          </ion-label>
+          <ion-badge color="warning" slot="end">₹{{ o.amount }}</ion-badge>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+  </div>
+  }
+
+  @case('members') {
+  <ion-list>
+    <ion-list-header>Society Members</ion-list-header>
+    @for(m of members; track m.username) {
+    <ion-item>
+      <ion-icon name="person-circle" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ m.name }}</h2>
+        <p>Flat: {{ m.username }} | {{ m.role }}</p>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  }
+
+  @case('committee') {
+  <ion-list>
+    <ion-list-header>Committee Members</ion-list-header>
+    @for(m of members; track m.username) {
+    @if(m.role !== 'FlatOwner' && m.role !== 'Tenant') {
+    <ion-item>
+      <ion-icon name="ribbon" color="warning" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ m.name }}</h2>
+        <p>Role: {{ m.role }}</p>
+        <p>Contact: {{ m.phone }}</p>
+      </ion-label>
+    </ion-item>
+    }
+    }
+  </ion-list>
+  }
+
+  @case('maintenance') {
+  <ion-segment [(ngModel)]="selectedMaintenanceTab" (ionChange)="onMaintenanceTabChange()">
+    <ion-segment-button value="dashboard">
+      <ion-label>{{ 'MAINTENANCE.TABS.DASHBOARD' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      <ion-label>{{ 'MAINTENANCE.TABS.PENDING' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="paid">
+      <ion-label>{{ 'MAINTENANCE.TABS.PAID' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="selectedMaintenanceTab" class="ion-margin-top">
+    <!-- Tab 1: Dashboard -->
+    <div *ngSwitchCase="'dashboard'">
+      <ion-list>
+        <ion-item>
+          <ion-icon name="filter-outline" slot="start"></ion-icon>
+          <ion-select [(ngModel)]="maintenanceFilter" interface="popover">
+            <ion-select-option value="monthly">{{ 'MAINTENANCE.FILTER.MONTHLY' | translate }}</ion-select-option>
+            <ion-select-option value="yearly">{{ 'MAINTENANCE.FILTER.YEARLY' | translate }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Collection Overview</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas id="maintenancePieCanvas"></canvas>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Weekly Trend</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas id="maintenanceBarCanvas"></canvas>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Tab 2: Pending Members -->
+    <div *ngSwitchCase="'pending'">
+      <ion-card color="danger">
+        <ion-card-header>
+          <ion-card-subtitle>{{ 'MAINTENANCE.TOTAL_PENDING' | translate }}</ion-card-subtitle>
+          <ion-card-title>₹{{ totalPendingAmount }}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+
+      <ion-list>
+        @for(p of pendingMembers; track p.name) {
+        <ion-item>
+          <ion-icon name="alert-circle-outline" slot="start" color="danger"></ion-icon>
+          <ion-label>
+            <h2>{{ p.name }} - {{ p.flat }}</h2>
+            <p>{{ p.period === 'Current Month' ? ('MAINTENANCE.CURRENT_MONTH' | translate) : ('MAINTENANCE.LAST_MONTH' |
+              translate) }}</p>
+          </ion-label>
+          <ion-badge color="warning" slot="end">₹{{ p.amount }}</ion-badge>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+
+    <!-- Tab 3: Paid Members -->
+    <div *ngSwitchCase="'paid'">
+      <ion-list>
+        @for(p of paidMembers; track p.name) {
+        <ion-item>
+          <ion-icon name="checkmark-circle-outline" slot="start" color="success"></ion-icon>
+          <ion-label>
+            <h2>{{ p.name }} - {{ p.flat }}</h2>
+            <p>Paid on {{ p.date }}</p>
+          </ion-label>
+          <ion-badge color="success" slot="end">₹{{ p.amount }}</ion-badge>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+  </div>
+  }
+
+  @case('events') {
+  @for(e of events; track e.title) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{ e.type }} Event</ion-card-subtitle>
+      <ion-card-title>{{ e.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Date: {{ e.date }}
+    </ion-card-content>
+  </ion-card>
+  }
+  }
+
+  @case('complaints') {
+  <ion-button expand="block" color="primary" class="ion-margin-bottom">Create New Complaint</ion-button>
+  <ion-list>
+    @for(c of complaints; track c.title) {
+    <ion-item>
+      <ion-label>
+        <h2>{{ c.title }}</h2>
+        <p>Requested: {{ c.date }}</p>
+      </ion-label>
+      <!-- Note: simplified badge color logic -->
+      <ion-badge slot="end" [color]="c.status === 'Open' ? 'danger' : 'warning'">{{ c.status }}</ion-badge>
+    </ion-item>
+    }
+  </ion-list>
+  }
+
+  @case('vehicles') {
+  <ion-list>
+    <ion-list-header>Registered Vehicles</ion-list-header>
+    @for(v of vehicles; track v.reg) {
+    <ion-item>
+      <ion-icon [name]="v.type === 'Car' ? 'car' : 'bicycle'" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ v.reg }}</h2>
+        <p>Type: {{ v.type }}</p>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  }
+
+  @case('contacts') {
+  <ion-list>
+    <ion-list-header>Important Contacts</ion-list-header>
+    <ion-item>
+      <ion-icon name="call" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Security Gate 1</h2>
+        <p>020-12345678</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="call" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Plumber (Society)</h2>
+        <p>9876543210</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  }
+
+  @default {
+  <div id="container">
+    <strong class="capitalize">{{ folder }}</strong>
+    <p>Explore this feature from the side menu.</p>
+  </div>
+  }
+  }
+
+</ion-content>

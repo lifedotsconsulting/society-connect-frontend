@@ -1,0 +1,55 @@
+{
+    "LOGIN": {
+        "TITLE": "लॉगिन",
+        "SUBTITLE": "लॉगिन करने के लिए कृपया अपना फ्लैट नंबर दर्ज करें",
+        "FLAT_NUMBER": "फ्लैट नंबर / उपयोगकर्ता नाम",
+        "PASSWORD": "पासवर्ड",
+        "LOGIN_BTN": "लॉगिन करें",
+        "LOGGING_IN": "लॉगिन हो रहा है...",
+        "ERRORS": {
+            "EMPTY": "कृपया फ्लैट नंबर और पासवर्ड दोनों दर्ज करें",
+            "INVALID_PASS": "अमान्य पासवर्ड। 'password123' का प्रयास करें।",
+            "NOT_FOUND": "उपयोगकर्ता (फ्लैट नंबर) नहीं मिला।",
+            "DEVICE_LOCKED": "इस फ्लैट के लिए एक अन्य उपयोगकर्ता पहले से ही इस उपकरण पर पंजीकृत है।"
+        }
+    },
+    "MENU": {
+        "WELCOME": "स्वागत है",
+        "ROLE": "भूमिका",
+        "DASHBOARD": "डैशबोर्ड",
+        "MEMBERS": "सदस्य",
+        "COMMITTEE": "समिति",
+        "MAINTENANCE": "रखरखाव",
+        "EVENTS": "आयोजन",
+        "COMPLAINTS": "शिकायतें",
+        "VEHICLES": "वाहन",
+        "CONTACTS": "संपर्क",
+        "DARK_MODE": "डार्क मोड",
+        "LOGOUT": "लॉग आउट",
+        "SETTINGS": "सेटिंग्स"
+    },
+    "SETTINGS": {
+        "PREFERENCES": "प्राथमिकताएं"
+    },
+    "DASHBOARD": {
+        "TABS": {
+            "EVENTS": "आयोजन (इस सप्ताह)",
+            "UPDATES": "अपडेट",
+            "OBLIGATIONS": "मेरे दायित्व"
+        }
+    },
+    "MAINTENANCE": {
+        "TABS": {
+            "DASHBOARD": "डैशबोर्ड",
+            "PENDING": "लंबित",
+            "PAID": "भुगतान किया"
+        },
+        "TOTAL_PENDING": "कुल लंबित राशि",
+        "CURRENT_MONTH": "वर्तमान महीना",
+        "LAST_MONTH": "पिछला महीना",
+        "FILTER": {
+            "MONTHLY": "मासिक",
+            "YEARLY": "वार्षिक"
+        }
+    }
+}

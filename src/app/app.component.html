@@ -1,0 +1,48 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" [disabled]="!currentUser">
+    <ion-menu contentId="main-content" type="overlay" [disabled]="!currentUser">
+      <ion-content>
+        @if (currentUser) {
+        <ion-list id="inbox-list">
+          <ion-list-header>
+            <!-- Optional: Render logo here. Using avatar for layout -->
+            <ion-avatar slot="start" style="margin-right: 15px; width: 40px; height: 40px">
+              <img [src]="societyLogo" onerror="this.src='assets/icon/favicon.png'" />
+            </ion-avatar>
+            {{ societyName }}
+          </ion-list-header>
+          <ion-note>{{ 'MENU.WELCOME' | translate }}, {{ currentUser.firstName }} ({{ currentUser.username
+            }})</ion-note>
+          <ion-note style="margin-top: 0;">{{ 'MENU.ROLE' | translate }}: {{ currentUser.role }}</ion-note>
+
+          @for (p of appPages; track p; let i = $index) {
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+              routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          }
+        </ion-list>
+
+        <ion-list id="labels-list">
+          <ion-item lines="none">
+            <ion-icon aria-hidden="true" slot="start" [name]="themeService.isDark ? 'moon' : 'sunny'"></ion-icon>
+            <ion-label>{{ 'MENU.DARK_MODE' | translate }}</ion-label>
+            <ion-toggle slot="end" [checked]="themeService.isDark"
+              (ionChange)="themeService.toggleTheme()"></ion-toggle>
+          </ion-item>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item button (click)="logout()" lines="none" color="danger">
+              <ion-icon aria-hidden="true" slot="start" name="log-out-outline"></ion-icon>
+              <ion-label>{{ 'MENU.LOGOUT' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        }
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

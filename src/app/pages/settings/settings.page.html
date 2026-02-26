@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'MENU.SETTINGS' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>{{ 'SETTINGS.PREFERENCES' | translate }}</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-icon name="language-outline" slot="start" color="primary"></ion-icon>
+      <ion-select [label]="'MENU.LANGUAGE' | translate" [value]="languageService.selectedLang"
+        (ionChange)="languageService.setLanguage($event.detail.value)" interface="popover" style="width: 100%;">
+        <ion-select-option value="en">English (EN)</ion-select-option>
+        <ion-select-option value="hi">हिंदी (HI)</ion-select-option>
+        <ion-select-option value="mr">मराठी (MR)</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

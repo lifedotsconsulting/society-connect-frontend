@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ 'LOGIN.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="themeService.toggleTheme()">
+        <ion-icon slot="icon-only" [name]="themeService.isDark ? 'sunny' : 'moon'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-logo ion-text-center ion-margin-bottom">
+    <h2>Society App</h2>
+    <p>{{ 'LOGIN.SUBTITLE' | translate }}</p>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">{{ 'LOGIN.FLAT_NUMBER' | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">{{ 'LOGIN.PASSWORD' | translate }}</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="login()">{{ 'LOGIN.LOGIN_BTN' | translate }}</ion-button>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-icon name="language-outline" slot="start" color="primary"></ion-icon>
+      <ion-select [label]="'MENU.LANGUAGE' | translate" [value]="languageService.selectedLang"
+        (ionChange)="languageService.setLanguage($event.detail.value)" interface="popover" style="width: 100%;">
+        <ion-select-option value="en">English (EN)</ion-select-option>
+        <ion-select-option value="hi">हिंदी (HI)</ion-select-option>
+        <ion-select-option value="mr">मराठी (MR)</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
