@@ -11,7 +11,7 @@
 
   @switch(folder.toLowerCase()) {
 
-  @case('dashboard') {
+  @case('updates') {
   <ion-segment [(ngModel)]="selectedTab">
     <ion-segment-button value="events">
       <ion-label>{{ 'DASHBOARD.TABS.EVENTS' | translate }}</ion-label>
@@ -108,7 +108,7 @@
 
   @case('maintenance') {
   <ion-segment [(ngModel)]="selectedMaintenanceTab" (ionChange)="onMaintenanceTabChange()">
-    <ion-segment-button value="dashboard">
+    <ion-segment-button value="updates">
       <ion-label>{{ 'MAINTENANCE.TABS.DASHBOARD' | translate }}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="pending">
@@ -121,7 +121,7 @@
 
   <div [ngSwitch]="selectedMaintenanceTab" class="ion-margin-top">
     <!-- Tab 1: Dashboard -->
-    <div *ngSwitchCase="'dashboard'">
+    <div *ngSwitchCase="'updates'">
       <ion-list>
         <ion-item>
           <ion-icon name="filter-outline" slot="start"></ion-icon>

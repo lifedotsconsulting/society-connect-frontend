@@ -16,7 +16,7 @@
     "MENU": {
         "WELCOME": "सुस्वागतम",
         "ROLE": "भूमिका",
-        "DASHBOARD": "डॅशबोर्ड",
+        "UPDATES": "अपडेट",
         "MEMBERS": "सदस्य",
         "COMMITTEE": "समिती",
         "MAINTENANCE": "देखभाल",
@@ -40,7 +40,7 @@
     },
     "MAINTENANCE": {
         "TABS": {
-            "DASHBOARD": "डॅशबोर्ड",
+            "DASHBOARD": "डैशबोर्ड",
             "PENDING": "प्रलंबित",
             "PAID": "पैसे दिले"
         },

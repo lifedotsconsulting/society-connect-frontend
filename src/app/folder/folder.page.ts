@@ -18,7 +18,7 @@ export class FolderPage implements OnInit {
   currentUser: User | null = null;
   roleEnum = UserRole;
   selectedTab = 'events';
-  selectedMaintenanceTab = 'dashboard';
+  selectedMaintenanceTab = 'updates';
   maintenanceFilter = 'monthly';
 
   // Mock data for views
@@ -92,7 +92,7 @@ export class FolderPage implements OnInit {
   }
 
   onMaintenanceTabChange() {
-    if (this.selectedMaintenanceTab === 'dashboard') {
+    if (this.selectedMaintenanceTab === 'updates') {
       this.renderCharts();
     }
   }
