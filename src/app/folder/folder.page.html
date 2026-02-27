@@ -11,6 +11,49 @@
 
   @switch(folder.toLowerCase()) {
 
+  @case('dashboard') {
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Overview</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas id="dashboardPieCanvas"></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Weekly Status</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas id="dashboardBarCanvas"></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-list-header>Quick Links</ion-list-header>
+    <ion-card routerLink="/folder/events" button>
+      <ion-item detail="true" lines="none">
+        <ion-icon name="calendar-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>Events</ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card routerLink="/folder/members" button>
+      <ion-item detail="true" lines="none">
+        <ion-icon name="people-outline" slot="start" color="secondary"></ion-icon>
+        <ion-label>Members</ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+  }
+
   @case('updates') {
   <ion-segment [(ngModel)]="selectedTab">
     <ion-segment-button value="events">

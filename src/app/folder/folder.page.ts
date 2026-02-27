@@ -75,6 +75,8 @@ export class FolderPage implements OnInit {
 
   pieChart: any;
   barChart: any;
+  dashboardPieChart: any;
+  dashboardBarChart: any;
 
   get totalPendingAmount() {
     return this.pendingMembers.reduce((sum, member) => sum + member.amount, 0);
@@ -89,12 +91,51 @@ export class FolderPage implements OnInit {
     if (this.folder.toLowerCase() === 'maintenance') {
       this.renderCharts();
     }
+    if (this.folder.toLowerCase() === 'dashboard') {
+      this.renderDashboardCharts();
+    }
   }
 
   onMaintenanceTabChange() {
     if (this.selectedMaintenanceTab === 'updates') {
       this.renderCharts();
     }
+  }
+
+  renderDashboardCharts() {
+    setTimeout(() => {
+      const pieCtx = document.getElementById('dashboardPieCanvas') as HTMLCanvasElement;
+      const barCtx = document.getElementById('dashboardBarCanvas') as HTMLCanvasElement;
+
+      if (pieCtx) {
+        if (this.dashboardPieChart) this.dashboardPieChart.destroy();
+        this.dashboardPieChart = new Chart(pieCtx, {
+          type: 'pie',
+          data: {
+            labels: ['Members', 'Tenants', 'Committee'],
+            datasets: [{
+              data: [45, 20, 10],
+              backgroundColor: ['#3880ff', '#5260ff', '#2dd36f']
+            }]
+          }
+        });
+      }
+
+      if (barCtx) {
+        if (this.dashboardBarChart) this.dashboardBarChart.destroy();
+        this.dashboardBarChart = new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+              label: 'General Activity',
+              data: [12, 19, 3, 5],
+              backgroundColor: '#eb445a'
+            }]
+          }
+        });
+      }
+    }, 200);
   }
 
   renderCharts() {

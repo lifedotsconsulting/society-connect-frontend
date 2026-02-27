@@ -16,6 +16,7 @@
     "MENU": {
         "WELCOME": "Welcome",
         "ROLE": "Role",
+        "DASHBOARD": "Dashboard",
         "UPDATES": "Updates",
         "MEMBERS": "Members",
         "COMMITTEE": "Committee",

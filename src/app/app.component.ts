@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   public appPages = [
+    { title: 'MENU.DASHBOARD', url: '/folder/dashboard', icon: 'grid' },
     { title: 'MENU.UPDATES', url: '/folder/updates', icon: 'notifications' },
     { title: 'MENU.MEMBERS', url: '/folder/members', icon: 'people' },
     { title: 'MENU.COMMITTEE', url: '/folder/committee', icon: 'ribbon' },
