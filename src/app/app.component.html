@@ -11,9 +11,22 @@
             </ion-avatar>
             {{ societyName }}
           </ion-list-header>
-          <ion-note>{{ 'MENU.WELCOME' | translate }}, {{ currentUser.firstName }} ({{ currentUser.username
-            }})</ion-note>
-          <ion-note style="margin-top: 0;">{{ 'MENU.ROLE' | translate }}: {{ currentUser.role }}</ion-note>
+          <ion-note>
+            {{ 'MENU.WELCOME' | translate }}, {{ currentUser.name }}
+          </ion-note>
+          <ion-note style="margin-top: 0; display: block; font-size: 0.9em;">
+            {{ 'MENU.ROLE' | translate }}: {{ currentUser.role }}
+          </ion-note>
+          @if (currentUser.flatId || currentUser.username) {
+          <ion-note style="margin-top: 0; display: block; font-size: 0.9em;">
+            Flat: {{ currentUser.flatId || currentUser.username }}
+          </ion-note>
+          }
+          @if (currentUser.phone) {
+          <ion-note style="margin-top: 0; display: block; font-size: 0.9em;">
+            Phone: {{ currentUser.phone }}
+          </ion-note>
+          }
 
           @for (p of appPages; track p; let i = $index) {
           <ion-menu-toggle auto-hide="false">

@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/folder/members"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Create New Member</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Member Details</ion-label>
+            </ion-list-header>
+
+            <ion-item>
+                <ion-input label="First Name" labelPlacement="stacked" formControlName="firstName"
+                    placeholder="Enter first name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Last Name" labelPlacement="stacked" formControlName="lastName"
+                    placeholder="Enter last name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Email" labelPlacement="stacked" type="email" formControlName="email"
+                    placeholder="Enter email address"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Phone Number" labelPlacement="stacked" type="tel" formControlName="phone"
+                    placeholder="Enter 10 digit phone number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-select label="Role" labelPlacement="stacked" formControlName="role">
+                    @for(r of roles; track $index) {
+                    <ion-select-option [value]="r">{{r}}</ion-select-option>
+                    }
+                </ion-select>
+            </ion-item>
+
+            <ion-list-header>
+                <ion-label>Flat Details</ion-label>
+            </ion-list-header>
+
+            <ion-item>
+                <ion-input label="Block" labelPlacement="stacked" formControlName="block"
+                    placeholder="e.g., A, B, C"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Floor" labelPlacement="stacked" type="number" formControlName="floor"
+                    placeholder="e.g., 1, 2, 3"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Flat Number" labelPlacement="stacked" formControlName="flatNumber"
+                    placeholder="e.g., 101, 205"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Size (sq ft)" labelPlacement="stacked" type="number" formControlName="size"
+                    placeholder="e.g., 1200"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Parking Slots" labelPlacement="stacked" formControlName="parking_slots"
+                    placeholder="e.g., P1, P2"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-select label="Occupancy Status" labelPlacement="stacked" formControlName="occupancy_status">
+                    @for(status of occupancyStatuses; track $index) {
+                    <ion-select-option [value]="status.value">{{status.label}}</ion-select-option>
+                    }
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-input label="Current Resident" labelPlacement="stacked" formControlName="current_resident"
+                    placeholder="Enter resident name if different"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-textarea label="Description" labelPlacement="stacked" formControlName="description"
+                    placeholder="Enter any additional details"></ion-textarea>
+            </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" type="submit" [disabled]="!memberForm.valid" class="ion-margin-top">
+            Save Member
+        </ion-button>
+    </form>
+</ion-content>

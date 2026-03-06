@@ -117,16 +117,26 @@
   }
 
   @case('members') {
+  <ion-button expand="block" color="primary" class="ion-margin-bottom" routerLink="/create-member">Create New
+    Member</ion-button>
   <ion-list>
     <ion-list-header>Society Members</ion-list-header>
+    @if (members.length === 0) {
+    <ion-item>
+      <ion-label class="ion-text-center color-medium">
+        <p>No records found</p>
+      </ion-label>
+    </ion-item>
+    } @else {
     @for(m of members; track m.username) {
     <ion-item>
       <ion-icon name="person-circle" slot="start"></ion-icon>
       <ion-label>
-        <h2>{{ m.name }}</h2>
+        <h2>{{ m.firstName }} {{ m.lastName }}</h2>
         <p>Flat: {{ m.username }} | {{ m.role }}</p>
       </ion-label>
     </ion-item>
+    }
     }
   </ion-list>
   }
@@ -134,16 +144,24 @@
   @case('committee') {
   <ion-list>
     <ion-list-header>Committee Members</ion-list-header>
+    @if (members.length === 0) {
+    <ion-item>
+      <ion-label class="ion-text-center color-medium">
+        <p>No records found</p>
+      </ion-label>
+    </ion-item>
+    } @else {
     @for(m of members; track m.username) {
     @if(m.role !== 'FlatOwner' && m.role !== 'Tenant') {
     <ion-item>
       <ion-icon name="ribbon" color="warning" slot="start"></ion-icon>
       <ion-label>
-        <h2>{{ m.name }}</h2>
+        <h2>{{ m.firstName }} {{ m.lastName }}</h2>
         <p>Role: {{ m.role }}</p>
         <p>Contact: {{ m.phone }}</p>
       </ion-label>
     </ion-item>
+    }
     }
     }
   </ion-list>
@@ -237,6 +255,13 @@
   }
 
   @case('events') {
+  @if (events.length === 0) {
+  <ion-card>
+    <ion-card-content class="ion-text-center color-medium">
+      <p>No records found</p>
+    </ion-card-content>
+  </ion-card>
+  } @else {
   @for(e of events; track e.title) {
   <ion-card>
     <ion-card-header>
@@ -249,10 +274,18 @@
   </ion-card>
   }
   }
+  }
 
   @case('complaints') {
   <ion-button expand="block" color="primary" class="ion-margin-bottom">Create New Complaint</ion-button>
   <ion-list>
+    @if (complaints.length === 0) {
+    <ion-item>
+      <ion-label class="ion-text-center color-medium">
+        <p>No records found</p>
+      </ion-label>
+    </ion-item>
+    } @else {
     @for(c of complaints; track c.title) {
     <ion-item>
       <ion-label>
@@ -263,12 +296,20 @@
       <ion-badge slot="end" [color]="c.status === 'Open' ? 'danger' : 'warning'">{{ c.status }}</ion-badge>
     </ion-item>
     }
+    }
   </ion-list>
   }
 
   @case('vehicles') {
   <ion-list>
     <ion-list-header>Registered Vehicles</ion-list-header>
+    @if (vehicles.length === 0) {
+    <ion-item>
+      <ion-label class="ion-text-center color-medium">
+        <p>No records found</p>
+      </ion-label>
+    </ion-item>
+    } @else {
     @for(v of vehicles; track v.reg) {
     <ion-item>
       <ion-icon [name]="v.type === 'Car' ? 'car' : 'bicycle'" slot="start"></ion-icon>
@@ -277,6 +318,7 @@
         <p>Type: {{ v.type }}</p>
       </ion-label>
     </ion-item>
+    }
     }
   </ion-list>
   }

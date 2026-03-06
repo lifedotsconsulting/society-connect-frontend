@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SocietyTheme } from '../models/core.models';
+import { SocietyTheme } from '../models';
 
 @Injectable({
     providedIn: 'root'

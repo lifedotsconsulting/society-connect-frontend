@@ -3,7 +3,11 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { User, UserRole } from '../models/core.models';
+import { User, UserRole } from '../models';
+import { UserService } from '../services/user.service';
+import { EventService } from '../services/event.service';
+import { ComplaintService } from '../services/complaint.service';
+import { VehicleService } from '../services/vehicle.service';
 
 @Component({
   selector: 'app-folder',
@@ -21,18 +25,9 @@ export class FolderPage implements OnInit {
   selectedMaintenanceTab = 'updates';
   maintenanceFilter = 'monthly';
 
-  // Mock data for views
-  members = [
-    { username: 'A101', name: 'John Admin', role: 'Admin', phone: '1234567890' },
-    { username: 'B403', name: 'Jane Owner', role: 'FlatOwner', phone: '0987654321' },
-    { username: 'C202', name: 'Bob Chairman', role: 'Chairman', phone: '1122334455' }
-  ];
-
-  events = [
-    { title: 'Annual General Meeting', date: '2024-03-15', type: 'Society' },
-    { title: 'Holi Celebration', date: '2024-03-25', type: 'Society' },
-    { title: 'Jane Birthday Party', date: '2024-04-10', type: 'Personal' }
-  ];
+  // Data fetched from APIs
+  members: any[] = [];
+  events: any[] = [];
 
   dashboardEvents = [
     { title: 'Social Gathering', type: 'Society' },
@@ -52,15 +47,8 @@ export class FolderPage implements OnInit {
     { title: 'Celebration Contribution', amount: 500, dueDate: '2024-10-31' }
   ];
 
-  complaints = [
-    { title: 'Lift not working', status: 'In Progress', date: '2024-02-20' },
-    { title: 'Water leakage in parking', status: 'Open', date: '2024-02-25' }
-  ];
-
-  vehicles = [
-    { reg: 'MH12 AB1234', type: 'Car' },
-    { reg: 'MH12 XY9876', type: 'Bike' }
-  ];
+  complaints: any[] = [];
+  vehicles: any[] = [];
 
   pendingMembers = [
     { name: 'John Doe', flat: 'A101', amount: 1500, period: 'Current Month' },
@@ -82,11 +70,19 @@ export class FolderPage implements OnInit {
     return this.pendingMembers.reduce((sum, member) => sum + member.amount, 0);
   }
 
-  constructor(public authService: AuthService) { }
+  constructor(
+    public authService: AuthService,
+    private userService: UserService,
+    private eventService: EventService,
+    private complaintService: ComplaintService,
+    private vehicleService: VehicleService
+  ) { }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.authService.currentUser$.subscribe(u => this.currentUser = u);
+
+    this.fetchData();
 
     if (this.folder.toLowerCase() === 'maintenance') {
       this.renderCharts();
@@ -100,6 +96,31 @@ export class FolderPage implements OnInit {
     if (this.selectedMaintenanceTab === 'updates') {
       this.renderCharts();
     }
+  }
+
+  fetchData() {
+    this.userService.getAll(this.authService.currentSociety?.id).subscribe({
+      next: (res) => this.members = res,
+      error: (err) => console.error('Error fetching members', err)
+    });
+    this.eventService.getAll().subscribe({
+      next: (res) => this.events = res,
+      error: (err) => console.error('Error fetching events', err)
+    });
+    this.complaintService.getAll().subscribe({
+      next: (res) => this.complaints = res,
+      error: (err) => console.error('Error fetching complaints', err)
+    });
+    this.vehicleService.getAll().subscribe({
+      next: (res) => this.vehicles = res,
+      error: (err) => console.error('Error fetching vehicles', err)
+    });
+    this.userService.getProfile().subscribe({
+      next: (res) => {
+        this.authService.updateCurrentUser(res);
+      },
+      error: (err) => console.error('Error fetching profile', err)
+    });
   }
 
   renderDashboardCharts() {
